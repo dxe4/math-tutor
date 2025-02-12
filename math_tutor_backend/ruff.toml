@@ -1,0 +1,13 @@
+line-length = 88
+extend-exclude = ["*/migrations/*"]
+extend-select = ["I"]
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+target-version = "py311"
+
+[mccabe]
+max-complexity = 10
+
+[per-file-ignores]
+"__init__.py" = ["F401"]
