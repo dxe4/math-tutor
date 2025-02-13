@@ -1,0 +1,26 @@
+.data-page {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.data-list {
+    display: grid;
+    gap: 20px;
+}
+
+.data-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.data-item h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.data-item p {
+    color: #666;
+}

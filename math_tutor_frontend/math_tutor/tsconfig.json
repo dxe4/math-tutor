@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "lib": ["dom", "esnext"],
+        "jsx": "react-jsx", // For React 17 and later. Use "react" for older versions.
+        "strict": true, // Enable strict type-checking options
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["./**/*"]
+}
