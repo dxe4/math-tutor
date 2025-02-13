@@ -85,5 +85,5 @@ class Command(BaseCommand):
                     "topic": topic,
                     "topic_link": topic_link,
                     "html": html,
-                }
+                },
             )
