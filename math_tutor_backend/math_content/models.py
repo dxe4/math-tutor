@@ -124,10 +124,12 @@ class StAndrewsResource(TimeStampedModel):
     """
 
     title = models.TextField()
+    # for HTML use a library that cleans it up
+    # probably readability
     html = models.TextField()
-    link = models.URLField()
+    link = models.URLField(unique=True)
 
-    class Meta:  #type: ignore
+    class Meta:  # type: ignore
         abstract = True
 
 
@@ -136,5 +138,5 @@ class StAndrewsBiography(StAndrewsResource):
 
 
 class StAndrewsTopic(StAndrewsResource):
-    topic = models.TextField(unique=True)
-    category = models.TextField()
+    topic = models.TextField()
+    topic_link = models.URLField()

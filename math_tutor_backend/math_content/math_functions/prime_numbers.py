@@ -34,10 +34,10 @@ class MillerRabin:
 
     @classmethod
     def is_prime(cls, n):
-        '''
+        """
         TODO use manifold
         https://github.com/dxe4/manifold
-        '''
+        """
         if n % 2 == 0:
             return n == 2
 

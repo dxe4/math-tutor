@@ -41,12 +41,12 @@ class UserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email: str = models.EmailField(unique=True)
-    username: str = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, unique=True)
 
-    is_active: bool = models.BooleanField(default=True)
-    is_staff: bool = models.BooleanField(default=False)
-    created_at: datetime = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
 
