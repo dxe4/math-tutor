@@ -86,8 +86,11 @@ class LinkResource(TimeStampedModel):
     title = models.TextField()
     text = models.TextField(blank=True)
     link = models.URLField(blank=True)
-    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    resource_type = models.CharField(max_length=128, choices=LinkResourceType.choices())
+    creator = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE)
+    resource_type = models.CharField(
+        max_length=128, choices=LinkResourceType.choices()
+    )
 
     @staticmethod
     def create_book(*args, **kwargs):

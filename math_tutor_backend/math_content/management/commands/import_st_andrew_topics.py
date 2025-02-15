@@ -25,7 +25,10 @@ def _get_links_and_text(response_text: str, selector: str) -> List[_Link]:
         href = link.get("href")
         text = link.get_text(strip=True)
         if href and text:
-            full_url = URL + href if not href.startswith("http") else href
+            if str(href).startswith("http"):
+                full_url = href
+            else:
+                full_url = f"{URL}{href}"
             new_link = _Link(text=text, link=normalize_url(full_url))
 
             topic_links.append(new_link)
@@ -48,7 +51,8 @@ class Command(BaseCommand):
             for category in categories:
                 time.sleep(1)
                 self.stdout.write(
-                    f"fetched {category.text} {category.link} {topic_link.link} {topic_link.text}",
+                    f"fetched {category.text} {category.link} {
+                        topic_link.link} {topic_link.text}",
                     ending="\n",
                 )
                 self.stdout.flush()
