@@ -133,7 +133,7 @@ class StAndrewsResource(TimeStampedModel):
 
 class StAndrewsBiography(StAndrewsResource):
     year_start = models.IntegerField()
-    year_end = models.IntegerField()
+    year_end = models.IntegerField(null=True)
     year_start_bc = models.BooleanField()
     year_end_bc = models.BooleanField()
 
