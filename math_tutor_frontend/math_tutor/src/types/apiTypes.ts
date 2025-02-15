@@ -1,6 +1,7 @@
 export interface TopicData {
   id: number;
-  name: string;
   title: string;
-  body: string;
+  html: string;
+  topic: string;
+  topic_url: URL;
 }

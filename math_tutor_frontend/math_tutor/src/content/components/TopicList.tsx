@@ -21,7 +21,7 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
       {data.map((item) => (
         <div key={item.id} className="data-item">
           <h3>{item.title}</h3>
-          <p>{item.body}</p>
+          <p>{item.topic}</p>
         </div>
       ))}
     </div>
