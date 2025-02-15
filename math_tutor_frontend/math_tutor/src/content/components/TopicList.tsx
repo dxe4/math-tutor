@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { TopicData } from "../../types/apiTypes";
-import { Table, Input, Modal } from "antd";
+import { Table, Input, Modal, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
+const { Text } = Typography;
 
 interface DataListProps {
   data: TopicData[];
@@ -68,7 +69,6 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
 
   return (
     <div>
-      {/* Search Input */}
       <Input.Search
         placeholder="Search topics..."
         allowClear
@@ -78,14 +78,12 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
         style={{ marginBottom: 16 }}
       />
 
-      {/* Table */}
       <Table
         columns={columns}
         dataSource={data}
-        rowKey={(record) => record.title} // Assuming title is unique
+        rowKey={(record) => record.title}
       />
 
-      {/* Modal with iframe */}
       <Modal
         title="Content Preview"
         open={isModalOpen}
@@ -104,6 +102,17 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
           title="Content Preview"
         />
       </Modal>
+      <Text type="secondary">
+        *Data is licensed under the{" "}
+        <a
+          href="https://creativecommons.org/licenses/by-sa/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Creative Commons Attribution-ShareAlike 4.0 International License.
+        </a>
+        .
+      </Text>
     </div>
   );
 };
