@@ -15,7 +15,6 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState<string>("");
 
-  // Handle modal
   const showModal = (link: string) => {
     setSelectedLink(link);
     setIsModalOpen(true);
@@ -26,7 +25,6 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
     setSelectedLink("");
   };
 
-  // Search filter
   const handleSearch = (searchText: string) => {
     setSearchText(searchText);
   };
@@ -62,7 +60,7 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
       dataIndex: "link",
       key: "visit",
       render: (link: URL) => (
-        <a target="_blank" href={link.toString()}>
+        <a target="_blank" rel="noreferrer" href={link.toString()}>
           Visit St Andrew
         </a>
       ),
