@@ -50,11 +50,21 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
       key: "topic",
     },
     {
-      title: "Link",
+      title: "View",
       dataIndex: "link",
       key: "link",
       render: (link: URL) => (
         <a onClick={() => showModal(link.toString())}>View Content</a>
+      ),
+    },
+    {
+      title: "Visit St Andrew",
+      dataIndex: "link",
+      key: "visit",
+      render: (link: URL) => (
+        <a target="_blank" href={link.toString()}>
+          Visit St Andrew
+        </a>
       ),
     },
   ];
@@ -98,6 +108,7 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
             width: "100%",
             height: "80vh",
             border: "none",
+            filter: "invert(1) hue-rotate(180deg)",
           }}
           title="Content Preview"
         />
