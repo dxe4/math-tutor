@@ -87,7 +87,8 @@ class LinkResource(TimeStampedModel):
     text = models.TextField(blank=True)
     link = models.URLField(blank=True)
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    resource_type = models.CharField(max_length=128, choices=LinkResourceType.choices())
+    resource_type = models.CharField(
+        max_length=128, choices=LinkResourceType.choices())
 
     @staticmethod
     def create_book(*args, **kwargs):
@@ -126,14 +127,28 @@ class StAndrewsResource(TimeStampedModel):
     title = models.TextField()
     link = models.URLField(unique=True)
 
-    class Meta:  # type: ignore
+    class Meta:
         abstract = True
 
 
 class StAndrewsBiography(StAndrewsResource):
-    mathematician = models.TextField(unique=True)
+    year_start = models.IntegerField()
+    year_end = models.IntegerField()
+    year_start_bc = models.BooleanField()
+    year_end_bc = models.BooleanField()
+
+    class Meta:
+        ordering = ["year_start", "title"]
+
+
+class StAndrewsCurve(StAndrewsResource):
+    class Meta:
+        ordering = ["title"]
 
 
 class StAndrewsTopic(StAndrewsResource):
     topic = models.TextField()
     topic_link = models.URLField()
+
+    class Meta:
+        ordering = ["topic", "title"]

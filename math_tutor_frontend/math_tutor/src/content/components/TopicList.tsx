@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TopicData } from "../../types/apiTypes";
-import IframeModal from "./IframeModal";
+import { Table, Input, Modal } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
 interface DataListProps {
   data: TopicData[];
@@ -9,8 +10,53 @@ interface DataListProps {
 }
 
 const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [iframeUrl, setIframeUrl] = useState<string>("");
+  const [searchText, setSearchText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLink, setSelectedLink] = useState<string>("");
+
+  // Handle modal
+  const showModal = (link: string) => {
+    setSelectedLink(link);
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setSelectedLink("");
+  };
+
+  // Search filter
+  const handleSearch = (searchText: string) => {
+    setSearchText(searchText);
+  };
+
+  const columns: ColumnsType<TopicData> = [
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+      filteredValue: [searchText],
+      onFilter: (value, record) => {
+        return (
+          record.title.toLowerCase().includes(value.toString().toLowerCase()) ||
+          record.topic.toLowerCase().includes(value.toString().toLowerCase())
+        );
+      },
+    },
+    {
+      title: "Topic",
+      dataIndex: "topic",
+      key: "topic",
+    },
+    {
+      title: "Link",
+      dataIndex: "link",
+      key: "link",
+      render: (link: URL) => (
+        <a onClick={() => showModal(link.toString())}>View Content</a>
+      ),
+    },
+  ];
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,47 +66,46 @@ const DataList: React.FC<DataListProps> = ({ data, isLoading, error }) => {
     return <div>Error: {error}</div>;
   }
 
-  const handleShowIframe = (url: URL) => {
-    setIframeUrl(url.toString());
-    setShowModal(true); // Show the modal with the iframe
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false); // Hide the modal
-  };
-
-  console.log(data);
   return (
     <div>
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              <td>{item.topic}</td>
-              <td>{item.title}</td>
-              <td>
-                <button onClick={() => handleShowIframe(item.link)}>
-                  Show
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <IframeModal
-        show={showModal}
-        onClose={handleCloseModal}
-        iframeUrl={iframeUrl}
+      {/* Search Input */}
+      <Input.Search
+        placeholder="Search topics..."
+        allowClear
+        enterButton
+        size="large"
+        onChange={(e) => handleSearch(e.target.value)}
+        style={{ marginBottom: 16 }}
       />
+
+      {/* Table */}
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey={(record) => record.title} // Assuming title is unique
+      />
+
+      {/* Modal with iframe */}
+      <Modal
+        title="Content Preview"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+        width="80%"
+        style={{ top: 20 }}
+      >
+        <iframe
+          src={selectedLink}
+          style={{
+            width: "100%",
+            height: "80vh",
+            border: "none",
+          }}
+          title="Content Preview"
+        />
+      </Modal>
     </div>
   );
 };
+
 export default DataList;
