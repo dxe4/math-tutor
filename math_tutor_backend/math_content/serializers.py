@@ -6,4 +6,10 @@ from math_content.models import StAndrewsTopic
 class StAndrewsTopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = StAndrewsTopic
-        fields = "__all__"
+        fields = [
+            "id",
+            "link",
+            "title",
+            "topic",
+            "topic_link",
+        ]

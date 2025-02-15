@@ -4,4 +4,5 @@ export interface TopicData {
   html: string;
   topic: string;
   topic_url: URL;
+  link: URL;
 }

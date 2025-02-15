@@ -86,11 +86,8 @@ class LinkResource(TimeStampedModel):
     title = models.TextField()
     text = models.TextField(blank=True)
     link = models.URLField(blank=True)
-    creator = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE)
-    resource_type = models.CharField(
-        max_length=128, choices=LinkResourceType.choices()
-    )
+    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    resource_type = models.CharField(max_length=128, choices=LinkResourceType.choices())
 
     @staticmethod
     def create_book(*args, **kwargs):
@@ -127,9 +124,6 @@ class StAndrewsResource(TimeStampedModel):
     """
 
     title = models.TextField()
-    # for HTML use a library that cleans it up
-    # probably readability
-    html = models.TextField()
     link = models.URLField(unique=True)
 
     class Meta:  # type: ignore

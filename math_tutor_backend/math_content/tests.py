@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+
 from math_content.factories import StAndrewsTopicFactory
 
 
@@ -10,7 +11,7 @@ def test_get_topics(client):
         html="<body> body </body>",
         link="https://wwww.example.com/123",
         topic="topic1",
-        topic_link="https://wwww.example.com/topic1"
+        topic_link="https://wwww.example.com/topic1",
     )
     url = reverse("topic-list")
     response = client.get(url)
@@ -19,14 +20,11 @@ def test_get_topics(client):
     assert len(response.json()) == 1
     expected = [
         {
-            'id': topic.id,
-            'created': topic.created.isoformat().replace("+00:00", "Z"),
-            'modified': topic.modified.isoformat().replace("+00:00", "Z"),
-            'title': 'title',
-            'html': '<body> body </body>',
-            'link': 'https://wwww.example.com/123',
-            'topic': 'topic1',
-            'topic_link': 'https://wwww.example.com/topic1'
+            "id": topic.id,
+            "title": "title",
+            "link": "https://wwww.example.com/123",
+            "topic": "topic1",
+            "topic_link": "https://wwww.example.com/topic1",
         }
     ]
     assert response.json() == expected
