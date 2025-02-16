@@ -87,8 +87,7 @@ class LinkResource(TimeStampedModel):
     text = models.TextField(blank=True)
     link = models.URLField(blank=True)
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    resource_type = models.CharField(
-        max_length=128, choices=LinkResourceType.choices())
+    resource_type = models.CharField(max_length=128, choices=LinkResourceType.choices())
 
     @staticmethod
     def create_book(*args, **kwargs):
@@ -136,9 +135,10 @@ class StAndrewsBiography(StAndrewsResource):
     year_end = models.IntegerField(null=True)
     year_start_bc = models.BooleanField()
     year_end_bc = models.BooleanField()
+    year_order = models.IntegerField()
 
     class Meta:
-        ordering = ["year_start", "title"]
+        ordering = ["year_order", "title"]
 
 
 class StAndrewsCurve(StAndrewsResource):

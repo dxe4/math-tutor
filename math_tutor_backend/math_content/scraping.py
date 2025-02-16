@@ -1,13 +1,13 @@
 import time
 from dataclasses import dataclass
 from typing import List, Tuple
-from typing_extensions import Optional
 from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
-from math_content.models import StAndrewsBiography
+from typing_extensions import Optional
 
+from math_content.models import StAndrewsBiography
 
 URL = "https://mathshistory.st-andrews.ac.uk/HistTopics/"
 
@@ -35,8 +35,7 @@ def _clean_year_text(year_text: str) -> Tuple[Optional[int], bool, Optional[int]
 
 
 def get_mathematician_info(
-    response_text: str,
-    current_url: str
+    response_text: str, current_url: str
 ) -> List[StAndrewsBiography]:
     soup = BeautifulSoup(response_text, "html.parser")
     mathematicians: List[StAndrewsBiography] = []
@@ -58,9 +57,12 @@ def get_mathematician_info(
         if not years_text:
             # theres an empty section in the list
             continue
-        start_year, start_year_bc, end_year, end_year_bc = _clean_year_text(
-            years_text
-        )
+        start_year, start_year_bc, end_year, end_year_bc = _clean_year_text(years_text)
+        if start_year_bc:
+            year_order = -start_year
+        else:
+            year_order = start_year
+
         mathematicians.append(
             StAndrewsBiography(
                 title=name,
@@ -69,6 +71,7 @@ def get_mathematician_info(
                 year_start_bc=start_year_bc,
                 year_end=end_year,
                 year_end_bc=end_year_bc,
+                year_order=year_order,
             )
         )
     return mathematicians

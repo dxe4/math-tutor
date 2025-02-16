@@ -4,9 +4,7 @@ import requests
 from django.core.management.base import BaseCommand
 
 from math_content.models import StAndrewsBiography
-from math_content.scraping import (
-    get_mathematician_info
-)
+from math_content.scraping import get_mathematician_info
 
 URL = "https://mathshistory.st-andrews.ac.uk/Biographies/chronological/"
 

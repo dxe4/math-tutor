@@ -4,7 +4,7 @@ import requests
 from django.core.management.base import BaseCommand
 
 from math_content.models import StAndrewsTopic
-from math_content.scraping import Link, get_links_and_text, get_categories
+from math_content.scraping import Link, get_categories, get_links_and_text
 
 URL = "https://mathshistory.st-andrews.ac.uk/HistTopics/"
 

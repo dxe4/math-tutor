@@ -4,9 +4,7 @@ import requests
 from django.core.management.base import BaseCommand
 
 from math_content.models import StAndrewsCurve
-from math_content.scraping import (
-    get_links_and_text
-)
+from math_content.scraping import get_links_and_text
 
 URL = "https://mathshistory.st-andrews.ac.uk/Biographies/chronological/"
 
@@ -24,8 +22,5 @@ class Command(BaseCommand):
         links = get_links_and_text(response.text, "#main li a", URL)
         self.stdout.write(f"found {len(links)} curves")
         self.stdout.flush()
-        curves = [
-            StAndrewsCurve(**{"title": i.text, "link": i.link})
-            for i in links
-        ]
+        curves = [StAndrewsCurve(**{"title": i.text, "link": i.link}) for i in links]
         StAndrewsCurve.objects.bulk_create(curves)
