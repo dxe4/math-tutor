@@ -7,7 +7,7 @@ const DataPage = () => {
 
   return (
     <div className="data-page">
-      <h1>St andrew topics</h1>
+      <h2 style={{ textAlign: "center" }}>St andrew topics</h2>
       <TopicStAndrewTable data={data} isLoading={isLoading} error={error} />
     </div>
   );

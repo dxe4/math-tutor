@@ -6,7 +6,7 @@ const CurvePage = () => {
   const { data, isLoading, error } = usefetchCurves();
   return (
     <div className="data-page">
-      <h1>St andrew data</h1>
+      <h2 style={{ textAlign: "center" }}>Curves</h2>
       <CurvesStAndrewTable data={data} isLoading={isLoading} error={error} />
     </div>
   );
