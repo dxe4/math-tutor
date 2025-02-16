@@ -1,8 +1,24 @@
 export interface TopicData {
   id: number;
   title: string;
-  html: string;
   topic: string;
   topic_url: URL;
   link: URL;
+}
+
+export interface Curve {
+  id: number;
+  title: string;
+  link: string;
+}
+
+export interface Biography {
+  id: number;
+  title: string;
+  link: string;
+  year_start: number;
+  year_end: number;
+  year_start_bc: boolean;
+  year_end_bc: boolean;
+  year_order: number;
 }

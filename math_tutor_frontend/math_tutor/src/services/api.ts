@@ -1,39 +1,67 @@
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import config from "../config/config";
+import { Biography, Curve, TopicData } from "../types/apiTypes";
+
+export interface AxiosResponseData<T> {
+  data: T | null;
+  error: string | null;
+  isLoading: boolean;
+}
 
 class ApiService {
   private baseUrl: string;
+
   constructor(baseUrl?: string) {
     this.baseUrl = baseUrl || config.API_HOST;
   }
 
-  async fetchData(endpoint: string, options: AxiosRequestConfig = {}) {
+  private async axiosRequest<T>(
+    endpoint: string,
+    options: AxiosRequestConfig = {},
+  ): Promise<AxiosResponseData<T>> {
+    const response: AxiosResponseData<T> = {
+      data: null,
+      error: null,
+      isLoading: true,
+    };
+
     try {
-      const response = await axios({
+      const result = await axios({
         method: options.method || "GET",
         url: `${this.baseUrl}${endpoint}`,
         headers: {
           "Content-Type": "application/json",
           ...options.headers,
         },
+        ...options,
       });
 
-      return response.data;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        throw new Error(
-          `API request failed: ${error.response?.status} - ${error.message}`,
-        );
-      } else if (error instanceof Error) {
-        throw new Error(`Unknown error: ${error.message}`);
+      response.data = result.data;
+      response.error = null;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        response.error = `API request failed: ${err.response?.status} - ${err.message}`;
+      } else if (err instanceof Error) {
+        response.error = `Unknown error: ${err.message}`;
       } else {
-        throw new Error("An unknown error occurred");
+        response.error = "An unknown error occurred";
       }
+    } finally {
+      response.isLoading = false;
     }
+
+    return response;
   }
 
-  fetchTopics() {
-    return this.fetchData("/api/content/topics");
+  async fetchTopics(): Promise<AxiosResponseData<TopicData[]>> {
+    return this.axiosRequest<TopicData[]>("/api/content/topics");
+  }
+
+  async fetchCurves(): Promise<AxiosResponseData<Curve[]>> {
+    return this.axiosRequest<Curve[]>("/api/content/curves");
+  }
+  async fetchBios(): Promise<AxiosResponseData<Biography[]>> {
+    return this.axiosRequest<Biography[]>("/api/content/biographies");
   }
 }
 

@@ -1,29 +1,24 @@
 import React from "react";
 import { ColumnsType } from "antd/es/table";
 import StAndrewTable from "./StAndrewTable";
-import { TopicData } from "../../types/apiTypes";
+import { Biography, TopicData } from "../../types/apiTypes";
 
-interface TopicStAndrewTableProps {
-  data: TopicData[] | null;
+interface BiosStAndrewTableProps {
+  data: Biography[] | null;
   isLoading: boolean;
   error: string | null;
 }
 
-const TopicStAndrewTable: React.FC<TopicStAndrewTableProps> = ({
+const BiosStAndrewTable: React.FC<BiosStAndrewTableProps> = ({
   data,
   isLoading,
   error,
 }) => {
-  const topicColumns: ColumnsType<TopicData> = [
+  const bioColumns: ColumnsType<Biography> = [
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
-    },
-    {
-      title: "Topic",
-      dataIndex: "topic",
-      key: "topic",
     },
     {
       title: "View",
@@ -36,20 +31,19 @@ const TopicStAndrewTable: React.FC<TopicStAndrewTableProps> = ({
       key: "external-link",
     },
   ];
-
   if (data === null) {
     return <div> </div>;
   }
 
   return (
-    <StAndrewTable<TopicData>
+    <StAndrewTable<Biography>
       data={data}
-      columns={topicColumns}
+      columns={bioColumns}
       isLoading={isLoading}
       error={error}
       searchConfig={{
         placeholder: "Search topics...",
-        searchableFields: ["title", "topic"],
+        searchableFields: ["title"],
       }}
       linkConfig={{
         modalKey: "modal-link",
@@ -73,4 +67,4 @@ const TopicStAndrewTable: React.FC<TopicStAndrewTableProps> = ({
   );
 };
 
-export default TopicStAndrewTable;
+export default BiosStAndrewTable;

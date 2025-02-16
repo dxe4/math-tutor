@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from math_content.models import StAndrewsCurve
 from math_content.scraping import get_links_and_text
 
-URL = "https://mathshistory.st-andrews.ac.uk/Biographies/chronological/"
+URL = "https://mathshistory.st-andrews.ac.uk/Curves/"
 
 
 class Command(BaseCommand):
