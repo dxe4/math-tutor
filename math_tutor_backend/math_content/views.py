@@ -1,6 +1,10 @@
+import uuid
+
 from rest_framework import generics, mixins
+from rest_framework.response import Response
 
 from math_content import models, serializers
+from math_content.tasks import is_prime_task
 
 
 class StAndrewTopicView(mixins.ListModelMixin, generics.GenericAPIView):
@@ -25,3 +29,27 @@ class StAndrewsBiographyView(mixins.ListModelMixin, generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+class PrimeCheckView(generics.GenericAPIView):
+
+    def get(self, request, *args, **kwargs):
+        session_id = str(uuid.uuid4())
+
+        data = {
+            "start": request.GET.get("start"),
+            "end": request.GET.get("end")
+        }
+        serializer = serializers.PrimeRangeSerializer(data=data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+
+        task_data = (
+            session_id,
+            serializer.data["start"],
+            serializer.data["end"],
+        )
+        is_prime_task.apply_async(task_data, countdown=5)
+
+        return Response({"session_id": session_id}, status=200)

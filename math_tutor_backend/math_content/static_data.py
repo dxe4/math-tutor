@@ -98,5 +98,5 @@ BASE_BOOKS = {
             "isbn": "9780195105193",
             "link": "https://www.goodreads.com/book/show/584620.What_Is_Mathematics_An_Elementary_Approach_to_Ideas_and_Methods",
         },
-    ]
+    ],
 }

@@ -38,3 +38,24 @@ class StAndrewsBiographySerializer(serializers.ModelSerializer):
             "year_end_bc",
             "year_order",
         ]
+
+
+class PrimeRangeSerializer(serializers.Serializer):
+    start = serializers.IntegerField(required=True)  # Required field
+    end = serializers.IntegerField(
+        required=False, allow_null=True
+    )  # Optional field, can be null
+
+    def validate(self, attrs):
+        start = attrs.get("start")
+        end = attrs.get("end")
+
+        if end is None:
+            attrs["end"] = start + 1
+
+        if end is not None and end < start:
+            raise serializers.ValidationError(
+                "End must be greater than or equal to start."
+            )
+
+        return attrs

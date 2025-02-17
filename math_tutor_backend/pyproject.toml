@@ -6,6 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "bs4>=0.0.2",
+    "celery>=5.4.0",
+    "channels>=4.2.0",
+    "channels-redis>=4.2.1",
+    "daphne>=4.1.2",
     "django>=5.1.6",
     "django-cors-headers>=4.7.0",
     "django-model-utils>=5.0.0",
@@ -13,7 +17,9 @@ dependencies = [
     "djangorestframework>=3.15.2",
     "mypy-extensions>=1.0.0",
     "psycopg2-binary>=2.9.10",
+    "redis>=5.2.1",
     "requests>=2.32.3",
+    "sympy>=1.13.3",
 ]
 
 [dependency-groups]

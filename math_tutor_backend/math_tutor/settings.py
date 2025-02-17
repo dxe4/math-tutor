@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import math_tutor
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    "channels",
     "math_base",
     "math_content",
 ]
@@ -73,7 +76,7 @@ TEMPLATES = [
     },
 ]
 WSGI_APPLICATION = "math_tutor.wsgi.application"
-
+ASGI_APPLICATION = "math_tutor.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 DATABASES = {
@@ -121,3 +124,18 @@ AUTH_USER_MODEL = "math_base.CustomUser"
 TEST_RUNNER = "pytest_django.runner.DjangoTestSuiteRunner"
 # TODO move to local later
 os.environ["PYTHONBREAKPOINT"] = "ipdb.set_trace"
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TASK_DEFAULT_QUEUE = "default"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
