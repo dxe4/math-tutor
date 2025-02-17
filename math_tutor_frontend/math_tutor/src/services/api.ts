@@ -1,6 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 import config from "../config/config";
-import { Biography, Curve, TopicData } from "../types/apiTypes";
+import {
+  PrimeNumberResponse,
+  Biography,
+  Curve,
+  TopicData,
+} from "../types/apiTypes";
 
 export interface AxiosResponseData<T> {
   data: T | null;
@@ -62,6 +67,13 @@ class ApiService {
   }
   async fetchBios(): Promise<AxiosResponseData<Biography[]>> {
     return this.axiosRequest<Biography[]>("/api/content/biographies");
+  }
+  async fetchPrimes(
+    start: number,
+    end: number,
+  ): Promise<AxiosResponseData<PrimeNumberResponse>> {
+    const url = `/api/content/prime-check?start=${start}&end=${end}`;
+    return this.axiosRequest<PrimeNumberResponse>(url);
   }
 }
 

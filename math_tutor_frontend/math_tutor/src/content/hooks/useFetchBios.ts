@@ -4,7 +4,7 @@ import { Biography } from "../../types/apiTypes";
 
 import { useCallback } from "react";
 
-const useBios = () => {
+const useFetchBios = () => {
   const fetchBios = useCallback(() => {
     return apiService.fetchBios();
   }, []);
@@ -12,4 +12,4 @@ const useBios = () => {
   return useFetch<Biography[]>(fetchBios);
 };
 
-export default useBios;
+export default useFetchBios;

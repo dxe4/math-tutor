@@ -22,3 +22,26 @@ export interface Biography {
   year_end_bc: boolean;
   year_order: number;
 }
+
+export type TaskEvent = {
+  event_type: "status" | "progress" | "complete" | "error";
+  result?: {
+    number: string;
+    is_prime: boolean;
+  };
+};
+
+export type TaskEventLog = {
+  id: string;
+  event: TaskEvent;
+  timestamp: Date;
+};
+
+export type TaskStatusProps = {
+  sessionId: string;
+  wsUrl: string;
+};
+
+export type PrimeNumberResponse = {
+  session_id: string;
+};

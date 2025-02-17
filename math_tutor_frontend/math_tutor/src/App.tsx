@@ -7,6 +7,7 @@ import CurvePage from "./content/CurvePage";
 import BioPage from "./content/BioPage";
 import TopicPage from "./content/TopicPage";
 import LandingPage from "./content/LandingPage";
+import PrimeNumberPage from "./content/PrimeNumberPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/topics" element={<TopicPage />} />
             <Route path="/curves" element={<CurvePage />} />
             <Route path="/bios" element={<BioPage />} />
+            <Route path="/primes" element={<PrimeNumberPage />} />
           </Routes>
         </Router>
       </div>
