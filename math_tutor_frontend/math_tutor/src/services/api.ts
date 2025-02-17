@@ -5,6 +5,7 @@ import {
   Biography,
   Curve,
   TopicData,
+  PowerOfTwoConvergenceResponse,
 } from "../types/apiTypes";
 
 export interface AxiosResponseData<T> {
@@ -74,6 +75,13 @@ class ApiService {
   ): Promise<AxiosResponseData<PrimeNumberResponse>> {
     const url = `/api/content/prime-check?start=${start}&end=${end}`;
     return this.axiosRequest<PrimeNumberResponse>(url);
+  }
+  async fetchPowerOfTwoToTheTen(): Promise<
+    AxiosResponseData<PowerOfTwoConvergenceResponse>
+  > {
+    return this.axiosRequest<PowerOfTwoConvergenceResponse>(
+      "/api/content/power-two-convergence/",
+    );
   }
 }
 

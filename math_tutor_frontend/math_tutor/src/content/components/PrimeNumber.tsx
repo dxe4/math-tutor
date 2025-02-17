@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Card, List, Typography, Button, Form, InputNumber } from "antd";
 import { TaskEvent } from "../../types/apiTypes";
 import useWebsocketPrimes from "../hooks/useWebsocketPrimes";
@@ -15,7 +15,6 @@ const TaskStatus: React.FC<TaskStatusProps> = ({ wsUrl }) => {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { events, isConnected } = useWebsocketPrimes({ sessionId, wsUrl });
-  const listRef = useRef<HTMLDivElement>(null);
 
   const handleStartCheck = async () => {
     const values = await form.validateFields();
@@ -65,7 +64,7 @@ const TaskStatus: React.FC<TaskStatusProps> = ({ wsUrl }) => {
         </Form.Item>
       </Form>
 
-      <div ref={listRef} style={{ height: 400, overflow: "auto" }}>
+      <div style={{ height: 400, overflow: "auto", scrollBehavior: "smooth" }}>
         <List
           itemLayout="horizontal"
           dataSource={events}

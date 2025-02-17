@@ -2,6 +2,7 @@ import uuid
 
 from rest_framework import generics, mixins
 from rest_framework.response import Response
+import manifold_rs
 
 from math_content import models, serializers
 from math_content.tasks import is_prime_task
@@ -53,3 +54,15 @@ class PrimeCheckView(generics.GenericAPIView):
         is_prime_task.apply_async(task_data, countdown=5)
 
         return Response({"session_id": session_id}, status=200)
+
+
+class PowerOfTwoConvergence(generics.GenericAPIView):
+    '''
+    TODO any better name for this?
+    '''
+    def get(self, request, *args, **kwargs):
+        result = manifold_rs.power_of_two_exponent_10n_py(1, 1000)
+        data = {
+            "powers": result
+        }
+        return Response(data, status=200)

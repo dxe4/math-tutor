@@ -45,3 +45,7 @@ export type TaskStatusProps = {
 export type PrimeNumberResponse = {
   session_id: string;
 };
+
+export type PowerOfTwoConvergenceResponse = {
+  powers: string[];
+};

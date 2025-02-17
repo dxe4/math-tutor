@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { TaskEvent, TaskEventLog } from "../../types/apiTypes";
 
 interface UseWebSocketProps {
@@ -9,7 +9,7 @@ interface UseWebSocketProps {
 const useWebSocketPrimes = ({ sessionId, wsUrl }: UseWebSocketProps) => {
   const [events, setEvents] = useState<TaskEventLog[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-  const wsRef = useRef<WebSocket | null>(null);
+  const [ws, setWs] = useState<WebSocket | null>(null);
 
   useEffect(() => {
     if (!sessionId) {
@@ -17,31 +17,31 @@ const useWebSocketPrimes = ({ sessionId, wsUrl }: UseWebSocketProps) => {
       return;
     }
 
-    const ws = new WebSocket(`${wsUrl}${sessionId}/`);
-    wsRef.current = ws;
+    const websocket = new WebSocket(`${wsUrl}${sessionId}/`);
+    setWs(websocket);
 
-    ws.onopen = () => {
+    websocket.onopen = () => {
       setIsConnected(true);
     };
 
-    ws.onmessage = (event: MessageEvent) => {
+    websocket.onmessage = (event: MessageEvent) => {
       const data: TaskEvent = JSON.parse(event.data);
-      handleNewEvent(data);
+      handleNewEvent(data, websocket);
     };
 
-    ws.onclose = () => {
+    websocket.onclose = () => {
       console.log("closed");
       setIsConnected(false);
     };
 
     return () => {
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.close();
+      if (websocket.readyState === WebSocket.OPEN) {
+        websocket.close();
       }
     };
   }, [sessionId, wsUrl]);
 
-  const handleNewEvent = (event: TaskEvent) => {
+  const handleNewEvent = (event: TaskEvent, websocket: WebSocket) => {
     const newEventLog: TaskEventLog = {
       id: crypto.randomUUID(),
       event,
@@ -51,7 +51,7 @@ const useWebSocketPrimes = ({ sessionId, wsUrl }: UseWebSocketProps) => {
     setEvents((prev) => [...prev, newEventLog]);
 
     if (event.event_type === "complete" || event.event_type === "error") {
-      wsRef.current?.close();
+      websocket.close();
     }
   };
 
