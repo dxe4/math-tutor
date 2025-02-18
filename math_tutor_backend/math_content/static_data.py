@@ -33,6 +33,13 @@ BASE_BOOKS = {
     ],
     "Number Theory": [
         {
+            "title": "p-adic Numbers: An Introduction",
+            "author": "Book by Gouvea, Fernando Quadros",
+            "link": "https://www.goodreads.com/book/show/1874245.p_adic_Numbers",
+            "isbn": "9783540629115",
+            "tags": ["number theory", "p-adic numbers"]
+        },
+        {
             "title": "An Introduction to the Theory of Numbers",
             "author": "G. H. Hardy, E. M. Wright",
             "isbn": "9780199219865",
@@ -100,3 +107,21 @@ BASE_BOOKS = {
         },
     ],
 }
+
+BASE_VIDEOS = [
+    {
+        "name": "[ANT15] p-adic integers: a primer, and an application (part 1)",
+        "url": "https://www.youtube.com/watch?v=SwbJmKbFo7o",
+        "tags": ["number theory", "p-adic numbers"],
+    },
+    {
+        "name": "Something Strange Happens When You Keep Squaring ",
+        "url": "https://www.youtube.com/watch?v=tRaq4aYPzCc",
+        "tags": ["number theory", "p-adic numbers"],
+    },
+    {
+        "name": "1 Billion is Tiny in an Alternate Universe: Introduction to p-adic Numbers",
+        "url": "https://www.youtube.com/watch?v=3gyHKCDq1YA",
+        "tags": ["number theory", "p-adic numbers"],
+    }
+]
