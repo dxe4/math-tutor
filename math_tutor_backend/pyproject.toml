@@ -86,4 +86,4 @@ reportMissingTypeStubs = false
 typeCheckingMode = "off"
 
 [tool.uv.sources]
-manifold = { url = "https://github.com/dxe4/manifold/releases/download/0.1.47/manifold-0.1.47-cp313-cp313-linux_x86_64.whl" }
+manifold = { url = "https://github.com/dxe4/manifold/releases/download/0.1.51/manifold-0.1.51-cp313-cp313-linux_x86_64.whl" }
