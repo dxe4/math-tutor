@@ -125,3 +125,11 @@ BASE_VIDEOS = [
         "tags": ["number theory", "p-adic numbers"],
     }
 ]
+
+LINKS = [
+    {
+        "name": "learn p-adic numbers",
+        "url": "https://adicmath.com/",
+        "tags": ["number theory", "p-adic numbers"]
+    }
+]
