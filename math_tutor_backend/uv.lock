@@ -627,15 +627,15 @@ wheels = [
 
 [[package]]
 name = "manifold"
-version = "0.1.51"
-source = { url = "https://github.com/dxe4/manifold/releases/download/0.1.51/manifold-0.1.51-cp313-cp313-linux_x86_64.whl" }
+version = "0.1.57"
+source = { url = "https://github.com/dxe4/manifold/releases/download/v0.1.57/manifold-0.1.57-cp313-cp313-linux_x86_64.whl" }
 dependencies = [
     { name = "maturin" },
     { name = "sympy" },
     { name = "toml" },
 ]
 wheels = [
-    { url = "https://github.com/dxe4/manifold/releases/download/0.1.51/manifold-0.1.51-cp313-cp313-linux_x86_64.whl", hash = "sha256:6e0c39007470f6b5db2bf2d51ecda0fa2b24f7cb79ad6348c3945a04aa659427" },
+    { url = "https://github.com/dxe4/manifold/releases/download/v0.1.57/manifold-0.1.57-cp313-cp313-linux_x86_64.whl", hash = "sha256:c612dcc45b7e5350851dabf4872f03e274dea2a66f193a863c6e5ff70b0832cd" },
 ]
 
 [package.metadata]
@@ -697,7 +697,7 @@ requires-dist = [
     { name = "django-model-utils", specifier = ">=5.0.0" },
     { name = "django-stubs", specifier = ">=5.1.3" },
     { name = "djangorestframework", specifier = ">=3.15.2" },
-    { name = "manifold", url = "https://github.com/dxe4/manifold/releases/download/0.1.51/manifold-0.1.51-cp313-cp313-linux_x86_64.whl" },
+    { name = "manifold", url = "https://github.com/dxe4/manifold/releases/download/v0.1.57/manifold-0.1.57-cp313-cp313-linux_x86_64.whl" },
     { name = "mypy", specifier = ">=1.15.0" },
     { name = "mypy-extensions", specifier = ">=1.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
