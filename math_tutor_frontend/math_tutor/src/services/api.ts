@@ -6,9 +6,10 @@ import {
   Curve,
   TopicData,
   PowerOfTwoConvergenceResponse,
+  CollatzResponse,
 } from "../types/apiTypes";
 
-export interface AxiosResponseData<T> {
+export interface AxiosData<T> {
   data: T | null;
   error: string | null;
   isLoading: boolean;
@@ -24,8 +25,8 @@ class ApiService {
   private async axiosRequest<T>(
     endpoint: string,
     options: AxiosRequestConfig = {},
-  ): Promise<AxiosResponseData<T>> {
-    const response: AxiosResponseData<T> = {
+  ): Promise<AxiosData<T>> {
+    const response: AxiosData<T> = {
       data: null,
       error: null,
       isLoading: true,
@@ -59,28 +60,36 @@ class ApiService {
     return response;
   }
 
-  async fetchTopics(): Promise<AxiosResponseData<TopicData[]>> {
+  async fetchTopics(): Promise<AxiosData<TopicData[]>> {
     return this.axiosRequest<TopicData[]>("/api/content/topics");
   }
 
-  async fetchCurves(): Promise<AxiosResponseData<Curve[]>> {
+  async fetchCurves(): Promise<AxiosData<Curve[]>> {
     return this.axiosRequest<Curve[]>("/api/content/curves");
   }
-  async fetchBios(): Promise<AxiosResponseData<Biography[]>> {
+  async fetchBios(): Promise<AxiosData<Biography[]>> {
     return this.axiosRequest<Biography[]>("/api/content/biographies");
   }
   async fetchPrimes(
     start: number,
     end: number,
-  ): Promise<AxiosResponseData<PrimeNumberResponse>> {
+  ): Promise<AxiosData<PrimeNumberResponse>> {
     const url = `/api/content/prime-check?start=${start}&end=${end}`;
     return this.axiosRequest<PrimeNumberResponse>(url);
   }
   async fetchPowerOfTwoToTheTen(): Promise<
-    AxiosResponseData<PowerOfTwoConvergenceResponse>
+    AxiosData<PowerOfTwoConvergenceResponse>
   > {
     return this.axiosRequest<PowerOfTwoConvergenceResponse>(
       "/api/content/power-two-convergence/",
+    );
+  }
+  async fetchCollatz(
+    start: number,
+    end: number,
+  ): Promise<AxiosData<CollatzResponse[]>> {
+    return this.axiosRequest<CollatzResponse[]>(
+      `/api/content/collatz/?start=${start}&end=${end}`,
     );
   }
 }

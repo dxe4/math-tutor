@@ -49,3 +49,11 @@ export type PrimeNumberResponse = {
 export type PowerOfTwoConvergenceResponse = {
   powers: string[];
 };
+
+export type CollatzResponse = {
+  start_number: number;
+  sequence: string[];
+  two_adic_distance_sequence: string[];
+  total_distance: number;
+  two_adic_total_distance: string;
+};

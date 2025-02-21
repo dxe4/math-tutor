@@ -9,6 +9,7 @@ import TopicPage from "./content/TopicPage";
 import LandingPage from "./content/LandingPage";
 import PrimeNumberPage from "./content/PrimeNumberPage";
 import NumberVisualizerContainer from "./content/NumberVisualiser";
+import CollatzPage from "./content/CollatzPage";
 
 function App() {
   return (
@@ -20,10 +21,7 @@ function App() {
           <Route path="/curves" element={<CurvePage />} />
           <Route path="/bios" element={<BioPage />} />
           <Route path="/primes" element={<PrimeNumberPage />} />
-          <Route
-            path="/powers-of-two-convergence"
-            element={<NumberVisualizerContainer />}
-          />
+          <Route path="/collatz" element={<CollatzPage />} />
         </Routes>
       </div>
     </ConfigProvider>
