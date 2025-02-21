@@ -7,7 +7,7 @@ import { useCallback } from "react";
 const useFetchCollatz = (start: number, end: number) => {
   const fetchCollatz = useCallback(() => {
     return apiService.fetchCollatz(start, end);
-  }, []);
+  }, [start, end]);
 
   return useFetch<CollatzResponse[]>(fetchCollatz);
 };
