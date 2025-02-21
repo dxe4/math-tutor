@@ -20,6 +20,10 @@ class EulerArchive(TimeStampedModel):
 class CollatzConjecture(TimeStampedModel):
     start_number = models.IntegerField(unique=True)
     sequence = models.JSONField()
+    two_adic_distance_sequence = models.JSONField()
+    total_distance = models.IntegerField()
+    # This is a rational
+    two_adic_total_distance = models.TextField()
 
     @classmethod
     def load_collatz_cache(cls, limit=None):
