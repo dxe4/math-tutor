@@ -4,7 +4,6 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 from math_base.models import CustomUser
-from math_content.math_functions.common import CollatzWithCache
 
 
 class ProjectEulerProblem(TimeStampedModel):
@@ -25,13 +24,16 @@ class CollatzConjecture(TimeStampedModel):
     # This is a rational
     two_adic_total_distance = models.TextField()
 
+    def __eq__(self, o):
+        return self.start_number == o.start_number
+
     @classmethod
     def load_collatz_cache(cls, limit=None):
         query = CollatzConjecture.objects.all()
         if limit:
             query = query[0:limit]
 
-        return {i.start_number: i.sequence for i in query}
+        return {i.start_number: i for i in query}
 
     @classmethod
     def get_numbers_not_processed(cls, start, end):
@@ -43,24 +45,6 @@ class CollatzConjecture(TimeStampedModel):
             i for i in range(start, end) if i not in existing_numbers
         ]
         return numbers_to_generate
-
-    @classmethod
-    def generate(cls, start=1, end=100):
-        numbers_to_generate = cls.get_numbers_not_processed(start, end)
-        if not numbers_to_generate:
-            print("all numbers are already generated")
-            return
-
-        new_objects = []
-        cache = cls.load_collatz_cache()
-        collatz = CollatzWithCache(cache)
-        collatz_result = collatz.generate_from_iterable(numbers_to_generate)
-        new_objects = [
-            CollatzConjecture(sequence=sequence, start_number=num)
-            for num, sequence in collatz_result.items()
-        ]
-
-        CollatzConjecture.objects.bulk_create(new_objects)
 
 
 class ChoicesEnumMixin(Enum):
