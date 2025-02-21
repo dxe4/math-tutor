@@ -37,7 +37,7 @@ BASE_BOOKS = {
             "author": "Book by Gouvea, Fernando Quadros",
             "link": "https://www.goodreads.com/book/show/1874245.p_adic_Numbers",
             "isbn": "9783540629115",
-            "tags": ["number theory", "p-adic numbers"]
+            "tags": ["number theory", "p-adic numbers"],
         },
         {
             "title": "An Introduction to the Theory of Numbers",
@@ -123,13 +123,13 @@ BASE_VIDEOS = [
         "name": "1 Billion is Tiny in an Alternate Universe: Introduction to p-adic Numbers",
         "url": "https://www.youtube.com/watch?v=3gyHKCDq1YA",
         "tags": ["number theory", "p-adic numbers"],
-    }
+    },
 ]
 
 LINKS = [
     {
         "name": "learn p-adic numbers",
         "url": "https://adicmath.com/",
-        "tags": ["number theory", "p-adic numbers"]
+        "tags": ["number theory", "p-adic numbers"],
     }
 ]

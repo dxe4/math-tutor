@@ -1,8 +1,10 @@
 import uuid
 
+import django_filters
+import manifold_rs
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, mixins
 from rest_framework.response import Response
-import manifold_rs
 
 from math_content import models, serializers
 from math_content.tasks import is_prime_task
@@ -37,10 +39,7 @@ class PrimeCheckView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         session_id = str(uuid.uuid4())
 
-        data = {
-            "start": request.GET.get("start"),
-            "end": request.GET.get("end")
-        }
+        data = {"start": request.GET.get("start"), "end": request.GET.get("end")}
         serializer = serializers.PrimeRangeSerializer(data=data)
 
         if not serializer.is_valid():
@@ -57,12 +56,34 @@ class PrimeCheckView(generics.GenericAPIView):
 
 
 class PowerOfTwoConvergence(generics.GenericAPIView):
-    '''
+    """
     TODO any better name for this?
-    '''
+    """
+
     def get(self, request, *args, **kwargs):
         result = manifold_rs.power_of_two_exponent_10n_py(1, 1000)
-        data = {
-            "powers": result
-        }
+        data = {"powers": result}
         return Response(data, status=200)
+
+
+class CollatzFilter(django_filters.FilterSet):
+    start = django_filters.NumberFilter(
+        field_name="start_number", lookup_expr="gte", required=True
+    )
+    end = django_filters.NumberFilter(
+        field_name="start_number", lookup_expr="lte", required=True
+    )
+
+    class Meta:
+        model = models.CollatzConjecture
+        fields = ["start", "end"]
+
+
+class CollatzConjectureView(mixins.ListModelMixin, generics.GenericAPIView):
+    queryset = models.CollatzConjecture.objects.all()
+    serializer_class = serializers.CollatzSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = CollatzFilter
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

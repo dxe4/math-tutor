@@ -59,3 +59,15 @@ class PrimeRangeSerializer(serializers.Serializer):
             )
 
         return attrs
+
+
+class CollatzSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CollatzConjecture
+        fields = [
+            "start_number",
+            "sequence",
+            "two_adic_distance_sequence",
+            "total_distance",
+            "two_adic_total_distance",
+        ]

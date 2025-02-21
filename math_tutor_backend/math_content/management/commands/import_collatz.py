@@ -1,7 +1,7 @@
 import manifold_rs
 from django.core.management.base import BaseCommand
-from math_content.models import CollatzConjecture
 
+from math_content.models import CollatzConjecture
 
 URL = "https://mathshistory.st-andrews.ac.uk/Curves/"
 
